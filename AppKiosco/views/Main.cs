@@ -14,9 +14,14 @@ namespace AppKiosco.views
 {
     public partial class Main : Form
     {
+        DeviceLibrary.DeviceLibrary device;
+
         public Main()
         {
             InitializeComponent();
+
+            device = new DeviceLibrary.DeviceLibrary();
+            device.Open();
 
             Point point = Util.CenterPoint(Screen.PrimaryScreen.Bounds.Size, panelMain.Size);
             gbMainButtons.Location = new Point(point.X, point.Y + panelMain.Size.Height);
@@ -34,6 +39,7 @@ namespace AppKiosco.views
                 Home home = new Home();
                 panelMain.Controls.Add(home);
                 gbMainButtons.Visible = false;
+                btMainNext.Enabled = true;
             }else if (lbMainControl.Text == "account") {
                 lbMainData.Text = "data";
                 panelMain.Controls.Clear();
@@ -41,6 +47,7 @@ namespace AppKiosco.views
                 panelMain.Controls.Add(account);
                 btMainPrev.Text = "< Cancelar";
                 btMainNext.Text = "Continuar >";
+                btMainNext.Enabled = true;
                 gbMainButtons.Visible = true;
             }else if (lbMainControl.Text == "balance") {
 
@@ -53,6 +60,15 @@ namespace AppKiosco.views
                     
                     if (Util.IsJsonObject(balance) && balance.Contains("user") && balance.Contains("debt")) {
                         lbMainData.Text = balance;
+
+                        JObject obj = JObject.Parse(balance);
+                        float debt = float.Parse(obj.GetValue("debt").ToString());
+                        if (debt <= 0.0f)
+                        {
+                            btMainNext.Enabled = false;
+                        }else {
+                            btMainNext.Enabled = true;
+                        }
                     }
 
                     if (Util.IsJsonObject(lbMainData.Text) && lbMainData.Text.Contains("user") && lbMainData.Text.Contains("debt")) {
@@ -107,6 +123,9 @@ namespace AppKiosco.views
                     paym.debt = restan;
                     paym.paid = deposito;
                     paym.date = DateTime.Now.ToString("dd/MM/yyyy hh:mm");
+
+                    DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document((decimal)deposito, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
+                    device.SimulateInsertion(dep);
 
                     SQLiteService sqlite = new SQLiteService();
                     if (sqlite.InsertPay(paym) == "OK")
