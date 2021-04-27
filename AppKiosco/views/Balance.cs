@@ -20,7 +20,13 @@ namespace AppKiosco.views
                 JObject obj = JObject.Parse(balance);
                 tbBalanceAccount.Text = obj.GetValue("account").ToString();
                 tbBalanceUser.Text = obj.GetValue("user").ToString();
-                tbBalanceDebt.Text = obj.GetValue("debt").ToString();
+
+                float debt = float.Parse(obj.GetValue("debt").ToString());
+                if (debt <= 0.0f) {
+                    tbBalanceDebt.Text = "00.00";
+                }else {
+                    tbBalanceDebt.Text = obj.GetValue("debt").ToString();
+                }
             }
         }
     }
