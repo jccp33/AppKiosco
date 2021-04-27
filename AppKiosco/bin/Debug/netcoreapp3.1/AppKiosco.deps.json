@@ -12,7 +12,8 @@
           "Microsoft.Data.Sqlite.Core": "5.0.5",
           "Microsoft.EntityFrameworkCore.Sqlite": "5.0.5",
           "Newtonsoft.Json": "13.0.1",
-          "RestSharp": "106.11.7"
+          "RestSharp": "106.11.7",
+          "DeviceLibrary": "1.0.0.0"
         },
         "runtime": {
           "AppKiosco.dll": {}
@@ -379,6 +380,14 @@
             "fileVersion": "5.0.20.51904"
           }
         }
+      },
+      "DeviceLibrary/1.0.0.0": {
+        "runtime": {
+          "DeviceLibrary.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -604,6 +613,11 @@
       "sha512": "sha512-+luxMQNZ2WqeffBU7Ml6njIvxc8169NW2oU+ygNudXQGZiarjE7DOtN7bILiQjTZjkmwwRZGTtLzmdrSI/Ustw==",
       "path": "system.text.json/5.0.0",
       "hashPath": "system.text.json.5.0.0.nupkg.sha512"
+    },
+    "DeviceLibrary/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

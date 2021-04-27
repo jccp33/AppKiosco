@@ -20,4 +20,10 @@
     <PackageReference Include="RestSharp" Version="106.11.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="DeviceLibrary">
+      <HintPath>..\..\..\..\Downloads\DeviceLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

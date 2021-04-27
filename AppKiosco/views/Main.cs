@@ -14,8 +14,6 @@ namespace AppKiosco.views
 {
     public partial class Main : Form
     {
-        // private string json_cust = "";
-
         public Main()
         {
             InitializeComponent();
@@ -106,7 +104,7 @@ namespace AppKiosco.views
                     paym.id = 0;
                     paym.account = obj.GetValue("account").ToString();
                     paym.customer = obj.GetValue("user").ToString(); ;
-                    paym.debt = deuda;
+                    paym.debt = restan;
                     paym.paid = deposito;
                     paym.date = DateTime.Now.ToString("dd/MM/yyyy hh:mm");
 
