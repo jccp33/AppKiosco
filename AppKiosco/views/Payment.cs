@@ -92,79 +92,88 @@ namespace AppKiosco.views
                     change += moneyExchange.pairs[i].denomination + " x " + moneyExchange.pairs[i].amount + "\n";
                 }
                 MessageBox.Show(change);
+                device.Enable();
                 device.Dispense((decimal)restan);
+                device.Disable();
 
                 SendPay();
             }
         }
 
+        private void InsertDocument(decimal denomination) {
+            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(denomination, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
+            device.Enable();
+            device.SimulateInsertion(dep);
+            device.Disable();
+        }
+
         private void btPaym_500_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(500, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(500);
+
             MakePay(500.0f);
         }
 
         private void btPaym_200_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(200, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(200);
+
             MakePay(200.0f);
         }
 
         private void btPaym_100_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(100, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(100);
+
             MakePay(100.0f);
         }
 
         private void btPaym_50_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(50, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(50);
+
             MakePay(50.0f);
         }
 
         private void btPaym_20_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(20, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(20);
+
             MakePay(20.0f);
         }
 
         private void btPaym_10_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(10, DeviceLibrary.Models.Enums.DocumentType.Coin, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(10);
+
             MakePay(10.0f);
         }
 
         private void btPaym_5_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(5, DeviceLibrary.Models.Enums.DocumentType.Coin, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(5);
+
             MakePay(5.0f);
         }
 
         private void btPaym_2_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(2, DeviceLibrary.Models.Enums.DocumentType.Coin, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(2);
+
             MakePay(2.0f);
         }
 
         private void btPaym_1_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(1, DeviceLibrary.Models.Enums.DocumentType.Coin, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(1);
+
             MakePay(1.0f);
         }
 
         private void btPaym_0_50_Click(object sender, EventArgs e)
         {
-            DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document(0.50M, DeviceLibrary.Models.Enums.DocumentType.Coin, 1);
-            device.SimulateInsertion(dep);
+            InsertDocument(0.50M);
+
             MakePay(0.50f);
         }
     }

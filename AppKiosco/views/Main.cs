@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics.Tracing;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using AppKiosco.models;
 using AppKiosco.Controllers;
 using Newtonsoft.Json.Linq;
 
@@ -14,13 +10,12 @@ namespace AppKiosco.views
 {
     public partial class Main : Form
     {
-        DeviceLibrary.DeviceLibrary device;
+        DeviceLibrary.DeviceLibrary device = new DeviceLibrary.DeviceLibrary();
+        protected EventListener eventListener;
 
         public Main()
         {
             InitializeComponent();
-
-            device = new DeviceLibrary.DeviceLibrary();
             device.Open();
 
             Point point = Util.CenterPoint(Screen.PrimaryScreen.Bounds.Size, panelMain.Size);
@@ -125,7 +120,9 @@ namespace AppKiosco.views
                     paym.date = DateTime.Now.ToString("dd/MM/yyyy hh:mm");
 
                     DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document((decimal)deposito, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
+                    device.Enable();
                     device.SimulateInsertion(dep);
+                    device.Disable();
 
                     SQLiteService sqlite = new SQLiteService();
                     if (sqlite.InsertPay(paym) == "OK")
