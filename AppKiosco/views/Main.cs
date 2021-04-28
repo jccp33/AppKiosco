@@ -10,13 +10,9 @@ namespace AppKiosco.views
 {
     public partial class Main : Form
     {
-        DeviceLibrary.DeviceLibrary device = new DeviceLibrary.DeviceLibrary();
-        protected EventListener eventListener;
-
         public Main()
         {
             InitializeComponent();
-            device.Open();
 
             Point point = Util.CenterPoint(Screen.PrimaryScreen.Bounds.Size, panelMain.Size);
             gbMainButtons.Location = new Point(point.X, point.Y + panelMain.Size.Height);
@@ -118,11 +114,6 @@ namespace AppKiosco.views
                     paym.debt = restan;
                     paym.paid = deposito;
                     paym.date = DateTime.Now.ToString("dd/MM/yyyy hh:mm");
-
-                    DeviceLibrary.Models.Document dep = new DeviceLibrary.Models.Document((decimal)deposito, DeviceLibrary.Models.Enums.DocumentType.Bill, 1);
-                    device.Enable();
-                    device.SimulateInsertion(dep);
-                    device.Disable();
 
                     SQLiteService sqlite = new SQLiteService();
                     if (sqlite.InsertPay(paym) == "OK")
